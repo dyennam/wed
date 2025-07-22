@@ -15,21 +15,34 @@
       align-items: center;
       min-height: 100vh;
       margin: 0;
-      /* Soft gradient background with a subtle dot pattern overlay */
+      /* Festive background pattern with subtle marigold and dots */
       background:
-        radial-gradient(circle, #e2d1c3 2px, transparent 2px),
-        radial-gradient(circle, #fdfcfb 2px, transparent 2px),
+        repeating-linear-gradient(135deg, #ffe5b4 0 2px, transparent 2px 40px),
+        repeating-linear-gradient(-135deg, #ffe5b4 0 2px, transparent 2px 40px),
+        radial-gradient(circle at 20px 20px, #ffd54f 1.5px, transparent 2px),
+        radial-gradient(circle at 60px 60px, #ffb300 1.5px, transparent 2px),
         linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%);
       background-size:
-        40px 40px,
-        40px 40px,
+        80px 80px,
+        80px 80px,
+        80px 80px,
+        80px 80px,
         100% 100%;
       background-position:
         0 0,
-        20px 20px,
+        0 0,
+        0 0,
+        40px 40px,
         0 0;
       color: #333;
       padding: 1rem;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Remove festive border balls */
+    body::before, body::after {
+      display: none !important;
     }
 
     h1 {
