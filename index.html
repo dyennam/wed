@@ -1,181 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Wedding Countdown</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
   <style>
+    /* RESET + BASE */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; font-family: 'Segoe UI', sans-serif; overflow-x: hidden; }
+
     body {
-      font-family: 'Segoe UI', sans-serif;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      margin: 0;
-      /* Kolam-inspired background with traditional patterns */
-      background:
-        /* Traditional Kolam dot grid pattern */
-        radial-gradient(circle at center, #d4af37 1px, transparent 1.5px),
-        /* Kolam lotus petal pattern */
-        url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23d4af37' stroke-width='1' opacity='0.1'%3E%3Cpath d='M50 20 Q35 35 50 50 Q65 35 50 20 M50 50 Q35 65 50 80 Q65 65 50 50 M20 50 Q35 35 50 50 Q35 65 20 50 M80 50 Q65 35 50 50 Q65 65 80 50'/%3E%3Ccircle cx='50' cy='50' r='25' fill='none'/%3E%3C/g%3E%3C/svg%3E"),
-        /* Kolam geometric pattern */
-        url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23b8860b' stroke-width='1' opacity='0.08'%3E%3Cpath d='M60 10 L90 30 L90 90 L60 110 L30 90 L30 30 Z'/%3E%3Cpath d='M60 25 L80 40 L80 80 L60 95 L40 80 L40 40 Z'/%3E%3Cpath d='M60 40 L70 50 L70 70 L60 80 L50 70 L50 50 Z'/%3E%3C/g%3E%3C/svg%3E"),
-        /* Base gradient with traditional colors */
-        linear-gradient(135deg, #fef9e7 0%, #faf0e6 50%, #f5e6d3 100%);
-      background-size:
-        20px 20px,
-        100px 100px,
-        120px 120px,
-        100% 100%;
-      background-position:
-        0 0,
-        50px 50px,
-        0 0,
-        0 0;
-      color: #333;
+      position: relative;
       padding: 1rem;
-      position: relative;
-      overflow-x: hidden;
+      color: #333;
+      text-align: center;
+      background:
+        /* 1) small dot grid */
+        radial-gradient(circle at center, #d4af37 1px, transparent 1.5px),
+        /* 2) lotus petal rings */
+        url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23d4af37' stroke-width='1' opacity='0.1'%3E%3Cpath d='M50 20 Q35 35 50 50 Q65 35 50 20 M50 50 Q35 65 50 80 Q65 65 50 50 M20 50 Q35 35 50 50 Q35 65 20 50 M80 50 Q65 35 50 50 Q65 65 80 50'/%3E%3Ccircle cx='50' cy='50' r='25' fill='none'/%3E%3C/g%3E%3C/svg%3E") 50px 50px/100px 100px repeat,
+        /* 3) geometric Kolam */
+        url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23b8860b' stroke-width='1' opacity='0.08'%3E%3Cpath d='M60 10 L90 30 L90 90 L60 110 L30 90 L30 30 Z'/%3E%3Cpath d='M60 25 L80 40 L80 80 L60 95 L40 80 L40 40 Z'/%3E%3Cpath d='M60 40 L70 50 L70 70 L60 80 L50 70 L50 50 Z'/%3E%3C/g%3E%3C/svg%3E") 0 0/120px 120px repeat,
+        /* 4) swirling dot-Kolam */
+        url("data:image/svg+xml,%3Csvg width='200' height='200' viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23d4af37' stroke-width='0.5' opacity='0.05'%3E%3Cpath d='M100,100 m-90,0 a90,90 0 1,1 180,0 a90,90 0 1,1 -180,0'/%3E%3Ccircle cx='100' cy='100' r='70'/%3E%3Ccircle cx='100' cy='100' r='50'/%3E%3Ccircle cx='100' cy='100' r='30'/%3E%3Ccircle cx='100' cy='100' r='10'/%3E%3C/g%3E%3C/svg%3E") center/200px 200px repeat,
+        /* 5) lotus-spiral repeat */
+        url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23b8860b' stroke-width='1' opacity='0.08'%3E%3Cpath d='M30,5 L35,20 L50,25 L35,30 L30,45 L25,30 L10,25 L25,20 Z'/%3E%3C/g%3E%3C/svg%3E") center/60px 60px repeat,
+        /* 6) base gradient */
+        linear-gradient(135deg, #fef9e7 0%, #faf0e6 50%, #f5e6d3 100%);
     }
 
-    /* Traditional Kolam corner patterns */
+    /* Corner Kolam accents */
+    body::before, body::after {
+      content: '';
+      position: fixed;
+      width: 80px; height: 80px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      opacity: 0.3;
+      z-index: -1;
+    }
     body::before {
-      content: '';
-      position: fixed;
-      top: 20px;
-      left: 20px;
-      width: 80px;
-      height: 80px;
-      background: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23d4af37' stroke-width='2' opacity='0.3'%3E%3Cpath d='M40 5 Q20 20 5 40 Q20 60 40 75 Q60 60 75 40 Q60 20 40 5 Z'/%3E%3Ccircle cx='40' cy='40' r='15'/%3E%3Cpath d='M25 25 L55 25 L55 55 L25 55 Z'/%3E%3C/g%3E%3C/svg%3E") no-repeat center;
-      background-size: contain;
-      z-index: -1;
+      top: 20px; left: 20px;
+      background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23d4af37' stroke-width='2'%3E%3Cpath d='M40 5 Q20 20 5 40 Q20 60 40 75 Q60 60 75 40 Q60 20 40 5 Z'/%3E%3Ccircle cx='40' cy='40' r='15'/%3E%3Cpath d='M25 25 L55 25 L55 55 L25 55 Z'/%3E%3C/g%3E%3C/svg%3E");
     }
-
     body::after {
-      content: '';
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      width: 80px;
-      height: 80px;
-      background: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23d4af37' stroke-width='2' opacity='0.3'%3E%3Cpath d='M40 5 Q60 20 75 40 Q60 60 40 75 Q20 60 5 40 Q20 20 40 5 Z'/%3E%3Ccircle cx='40' cy='40' r='15'/%3E%3Cpath d='M25 25 L55 25 L55 55 L25 55 Z'/%3E%3C/g%3E%3C/svg%3E") no-repeat center;
-      background-size: contain;
-      z-index: -1;
+      top: 20px; right: 20px;
+      background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23d4af37' stroke-width='2'%3E%3Cpath d='M40 5 Q60 20 75 40 Q60 60 40 75 Q20 60 5 40 Q20 20 40 5 Z'/%3E%3Ccircle cx='40' cy='40' r='15'/%3E%3Cpath d='M25 25 L55 25 L55 55 L25 55 Z'/%3E%3C/g%3E%3C/svg%3E");
     }
 
-    /* Large Kolam pattern behind the countdown */
+    /* Central & side Kolam elements */
     .main-kolam {
-      position: fixed;
-      top: 50%;
-      left: 50%;
+      position: fixed; top: 50%; left: 50%;
       transform: translate(-50%, -50%);
-      width: 400px;
-      height: 400px;
-      background: url("data:image/svg+xml,%3Csvg width='400' height='400' viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23d4af37' stroke-width='2' opacity='0.08'%3E%3C!-- Central lotus pattern --%3E%3Ccircle cx='200' cy='200' r='150'/%3E%3Ccircle cx='200' cy='200' r='120'/%3E%3Ccircle cx='200' cy='200' r='90'/%3E%3Ccircle cx='200' cy='200' r='60'/%3E%3Ccircle cx='200' cy='200' r='30'/%3E%3C!-- Lotus petals --%3E%3Cpath d='M200 50 Q150 100 200 150 Q250 100 200 50'/%3E%3Cpath d='M350 200 Q300 150 250 200 Q300 250 350 200'/%3E%3Cpath d='M200 350 Q250 300 200 250 Q150 300 200 350'/%3E%3Cpath d='M50 200 Q100 250 150 200 Q100 150 50 200'/%3E%3C!-- Diagonal petals --%3E%3Cpath d='M293 107 Q250 130 270 170 Q310 150 293 107'/%3E%3Cpath d='M293 293 Q270 250 230 270 Q250 310 293 293'/%3E%3Cpath d='M107 293 Q130 250 90 230 Q70 270 107 293'/%3E%3Cpath d='M107 107 Q150 130 130 90 Q90 110 107 107'/%3E%3C!-- Geometric connecting lines --%3E%3Cpath d='M200 20 L200 380 M20 200 L380 200 M80 80 L320 320 M320 80 L80 320'/%3E%3C/g%3E%3C/svg%3E") no-repeat center;
-      background-size: contain;
+      width: 400px; height: 400px;
+      background: url("data:image/svg+xml,%3Csvg width='400' height='400' viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23d4af37' stroke-width='2' opacity='0.08'%3E%3Ccircle cx='200' cy='200' r='150'/%3E%3Ccircle cx='200' cy='200' r='120'/%3E%3Ccircle cx='200' cy='200' r='90'/%3E%3Ccircle cx='200' cy='200' r='60'/%3E%3Ccircle cx='200' cy='200' r='30'/%3E%3Cpath d='M200 50 Q150 100 200 150 Q250 100 200 50'/%3E%3Cpath d='M350 200 Q300 150 250 200 Q300 250 350 200'/%3E%3Cpath d='M200 350 Q250 300 200 250 Q150 300 200 350'/%3E%3Cpath d='M50 200 Q100 250 150 200 Q100 150 50 200'/%3E%3Cpath d='M200 20 L200 380 M20 200 L380 200 M80 80 L320 320 M320 80 L80 320'/%3E%3C/g%3E%3C/svg%3E") no-repeat center/contain;
       z-index: -1;
     }
-
-    /* Side Kolam borders */
-    .kolam-left {
-      position: fixed;
-      left: 5px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 60px;
-      height: 300px;
-      background: url("data:image/svg+xml,%3Csvg width='60' height='300' viewBox='0 0 60 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23d4af37' stroke-width='1.5' opacity='0.2'%3E%3C!-- Repeating diamond pattern --%3E%3Cpath d='M30 25 L45 40 L30 55 L15 40 Z'/%3E%3Cpath d='M30 75 L45 90 L30 105 L15 90 Z'/%3E%3Cpath d='M30 125 L45 140 L30 155 L15 140 Z'/%3E%3Cpath d='M30 175 L45 190 L30 205 L15 190 Z'/%3E%3Cpath d='M30 225 L45 240 L30 255 L15 240 Z'/%3E%3C!-- Connecting vine --%3E%3Cpath d='M30 10 Q20 30 30 50 Q40 70 30 90 Q20 110 30 130 Q40 150 30 170 Q20 190 30 210 Q40 230 30 250 Q20 270 30 290'/%3E%3C/g%3E%3C/svg%3E") no-repeat center;
-      background-size: contain;
-      z-index: -1;
+    .kolam-left, .kolam-right {
+      position: fixed; top: 50%; transform: translateY(-50%);
+      width: 60px; height: 300px; background-size: contain; background-repeat: no-repeat; z-index: -1; opacity: 0.2;
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='300' viewBox='0 0 60 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23d4af37' stroke-width='1.5'%3E%3Cpath d='M30 25 L45 40 L30 55 L15 40 Z M30 75 L45 90 L30 105 L15 90 Z M30 125 L45 140 L30 155 L15 140 Z M30 175 L45 190 L30 205 L15 190 Z M30 225 L45 240 L30 255 L15 240 Z'/%3E%3Cpath d='M30 10 Q20 30 30 50 Q40 70 30 90 Q20 110 30 130 Q40 150 30 170 Q20 190 30 210 Q40 230 30 250 Q20 270 30 290'/%3E%3C/g%3E%3C/svg%3E");
     }
+    .kolam-left { left: 5px; }
+    .kolam-right { right: 5px; transform: translateY(-50%) scaleX(-1); }
 
-    .kolam-right {
-      position: fixed;
-      right: 5px;
-      top: 50%;
-      transform: translateY(-50%) scaleX(-1);
-      width: 60px;
-      height: 300px;
-      background: url("data:image/svg+xml,%3Csvg width='60' height='300' viewBox='0 0 60 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23d4af37' stroke-width='1.5' opacity='0.2'%3E%3C!-- Repeating diamond pattern --%3E%3Cpath d='M30 25 L45 40 L30 55 L15 40 Z'/%3E%3Cpath d='M30 75 L45 90 L30 105 L15 90 Z'/%3E%3Cpath d='M30 125 L45 140 L30 155 L15 140 Z'/%3E%3Cpath d='M30 175 L45 190 L30 205 L15 190 Z'/%3E%3Cpath d='M30 225 L45 240 L30 255 L15 240 Z'/%3E%3C!-- Connecting vine --%3E%3Cpath d='M30 10 Q20 30 30 50 Q40 70 30 90 Q20 110 30 130 Q40 150 30 170 Q20 190 30 210 Q40 230 30 250 Q20 270 30 290'/%3E%3C/g%3E%3C/svg%3E") no-repeat center;
-      background-size: contain;
-      z-index: -1;
-    }
-
-    h1 {
-      font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
-      font-size: 3.2rem;
-      font-weight: 700;
-      margin-bottom: 1.4rem;
-      color: #b8860b;
-      letter-spacing: 2px;
-      text-align: center;
-      max-width: 95vw;
-      width: 100%;
-      padding: 0.5em 0;
-      line-height: 1.2;
-      word-break: break-word;
-      text-shadow: 0 2px 4px rgba(184, 134, 11, 0.2);
-      position: relative;
-      z-index: 1;
-    }
-
-    .countdown {
-      font-size: 3rem;
-      background: rgba(255, 255, 255, 0.95);
-      padding: 2rem 4rem;
-      border-radius: 20px;
-      box-shadow: 
-        0 8px 32px rgba(212, 175, 55, 0.2),
-        0 4px 16px rgba(184, 134, 11, 0.15);
-      margin-bottom: 1.4rem;
-      transition: all 0.3s ease;
-      font-weight: bold;
-      letter-spacing: 2px;
-      color: #8b4513;
-      border: 2px solid rgba(212, 175, 55, 0.3);
-      position: relative;
-      z-index: 1;
-      backdrop-filter: blur(5px);
-    }
-
-    .countdown:hover {
-      transform: translateY(-2px);
-      box-shadow: 
-        0 12px 40px rgba(212, 175, 55, 0.25),
-        0 6px 20px rgba(184, 134, 11, 0.2);
-    }
-
-    .label {
-      font-size: 1.3rem;
-      color: #8b4513;
-      margin-top: 0.5rem;
-      text-align: center;
-      letter-spacing: 1px;
-      background: rgba(255, 255, 255, 0.9);
-      padding: 0.8rem 1.5rem;
-      border-radius: 15px;
-      box-shadow: 0 4px 16px rgba(212, 175, 55, 0.15);
-      font-weight: 500;
-      display: inline-block;
-      border: 1px solid rgba(212, 175, 55, 0.3);
-      position: relative;
-      z-index: 1;
-      backdrop-filter: blur(3px);
-    }
-
-    /* Traditional symbols scattered */
+    /* Scattered traditional symbols */
     .kolam-symbol {
-      position: fixed;
-      font-size: 1.2rem;
-      color: rgba(212, 175, 55, 0.4);
-      z-index: -1;
-      pointer-events: none;
-      font-family: serif;
+      position: fixed; font-size: 1.2rem; color: rgba(212, 175, 55, 0.4);
+      z-index: -1; pointer-events: none; font-family: serif;
     }
-
     .symbol-1 { top: 20%; left: 15%; }
     .symbol-2 { top: 30%; right: 20%; }
     .symbol-3 { bottom: 25%; left: 18%; }
@@ -183,81 +77,84 @@
     .symbol-5 { top: 60%; left: 8%; }
     .symbol-6 { top: 40%; right: 8%; }
 
-    /* Mobile responsiveness */
+    /* HEADLINE */
+    h1 {
+      font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+      font-size: 3.2rem; font-weight: 700; margin-bottom: 1.4rem;
+      color: #b8860b; letter-spacing: 2px; line-height: 1.2;
+      text-shadow: 0 2px 4px rgba(184, 134, 11, 0.2);
+      z-index: 1;
+    }
+
+    /* COUNTDOWN BOX */
+    .countdown {
+      font-size: 3rem; font-weight: bold; letter-spacing: 2px;
+      background: rgba(255,255,255,0.95); padding: 2rem 4rem;
+      border-radius: 20px; border: 2px solid rgba(212,175,55,0.3);
+      box-shadow: 0 8px 32px rgba(212,175,55,0.2), 0 4px 16px rgba(184,134,11,0.15);
+      backdrop-filter: blur(5px); margin-bottom: 1.4rem; transition: all 0.3s ease;
+      z-index: 1;
+    }
+    .countdown:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(212,175,55,0.25), 0 6px 20px rgba(184,134,11,0.2);
+    }
+
+    /* LABEL */
+    .label {
+      display: inline-block; margin-bottom: 2rem;
+      font-size: 1.3rem; font-weight: 500; letter-spacing: 1px;
+      background: rgba(255,255,255,0.9); padding: 0.8rem 1.5rem;
+      border-radius: 15px; border: 1px solid rgba(212,175,55,0.3);
+      box-shadow: 0 4px 16px rgba(212,175,55,0.15); color: #8b4513;
+      backdrop-filter: blur(3px); z-index: 1;
+    }
+
+    /* RESPONSIVE */
     @media (max-width: 600px) {
-      h1 {
-        font-size: 2rem;
-      }
-      .countdown {
-        font-size: 2rem;
-        padding: 1.1rem 0.7rem;
-      }
-      .label {
-        font-size: 1.05rem;
-        padding: 0.6rem 1rem;
-      }
-      .main-kolam {
-        width: 300px;
-        height: 300px;
-      }
-      .kolam-left,
-      .kolam-right {
-        width: 40px;
-        height: 200px;
-      }
-      body::before,
-      body::after {
-        width: 50px;
-        height: 50px;
-      }
-      .kolam-symbol {
-        font-size: 1rem;
-      }
+      h1 { font-size: 2rem; }
+      .countdown { font-size: 2rem; padding: 1.1rem 0.7rem; }
+      .label { font-size: 1.05rem; padding: 0.6rem 1rem; }
+      .main-kolam { width: 300px; height: 300px; }
+      .kolam-left, .kolam-right { height: 200px; width: 40px; }
+      body::before, body::after { width: 50px; height: 50px; }
+      .kolam-symbol { font-size: 1rem; }
     }
   </style>
 </head>
+<body style="display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 100vh;">
+  <div class="main-kolam"></div>
+  <div class="kolam-left"></div>
+  <div class="kolam-right"></div>
 
-<body>
-    <div class="main-kolam"></div>
-    <div class="kolam-left"></div>
-    <div class="kolam-right"></div>
-    
-    <div class="kolam-symbol symbol-1">✿</div>
-    <div class="kolam-symbol symbol-2">❋</div>
-    <div class="kolam-symbol symbol-3">✾</div>
-    <div class="kolam-symbol symbol-4">❃</div>
-    <div class="kolam-symbol symbol-5">✱</div>
-    <div class="kolam-symbol symbol-6">❈</div>
+  <div class="kolam-symbol symbol-1">✿</div>
+  <div class="kolam-symbol symbol-2">❋</div>
+  <div class="kolam-symbol symbol-3">✾</div>
+  <div class="kolam-symbol symbol-4">❃</div>
+  <div class="kolam-symbol symbol-5">✱</div>
+  <div class="kolam-symbol symbol-6">❈</div>
 
-    <h1>Countdown to Our Wedding !!! </h1>
-    <div class="countdown" id="countdown">Loading...</div>
-    <div class="label">August 10, 2025 at 10:00 AM</div>
+  <!-- Move headline higher -->
+  <h1 style="margin-top: 3.5rem; margin-bottom: 1.4rem;">Countdown to Our Wedding!!!</h1>
+  <!-- Move timer lower -->
+  <div style="height: 180px;"></div>
+  <div class="countdown" id="countdown">Loading…</div>
+  <div class="label">August 10, 2025 at 10:12 AM</div>
 
-    <script>
-        const countdownEl = document.getElementById('countdown');
-        const targetDate = new Date('2025-08-10T10:00:00');
-
-        function updateCountdown() {
-            const now = new Date();
-            const diff = targetDate - now;
-
-            if (diff <= 0) {
-                countdownEl.innerHTML = "It's time! 💍✨";
-                clearInterval(timer);
-                return;
-            }
-
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-            const minutes = Math.floor((diff / (1000 * 60)) % 60);
-            const seconds = Math.floor((diff / 1000) % 60);
-
-            countdownEl.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-        }
-
-        const timer = setInterval(updateCountdown, 1000);
-        updateCountdown();
-    </script>
+  <script>
+    const el = document.getElementById('countdown');
+    const target = new Date('2025-08-10T10:00:00');
+    function tick() {
+      const now = new Date(), diff = Math.max(0, target - now);
+      const d = Math.floor(diff/86400000),
+            h = Math.floor((diff%86400000)/3600000),
+            m = Math.floor((diff%3600000)/60000),
+            s = Math.floor((diff%60000)/1000);
+      el.textContent = `${d}d ${h}h ${m}m ${s}s`;
+      if(diff<=0) { el.textContent = "It's time! 💍✨"; clearInterval(i); }
+    }
+    tick();
+    const i = setInterval(tick, 1000);
+  </script>
 </body>
-
 </html>
